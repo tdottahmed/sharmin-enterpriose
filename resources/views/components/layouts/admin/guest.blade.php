@@ -8,34 +8,7 @@
 
 <body>
 
-    <!-- Begin page -->
-    <div id="layout-wrapper">
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
-        <div class="main-content">
-
-            <div class="page-content">
-                <div class="container-fluid">
-                    {{ $slot }}
-                </div>
-                <!-- container-fluid -->
-            </div>
-            <!-- End Page-content -->
-        </div>
-        <!-- end main content-->
-
-    </div>
-    <!-- END layout-wrapper -->
-
-    <!--preloader-->
-    <div id="preloader">
-        <div id="status">
-            <div class="spinner-border text-primary avatar-sm" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
-    </div>
+    {{ $slot }}
     <x-layouts.admin.includes.scripts />
 </body>
 

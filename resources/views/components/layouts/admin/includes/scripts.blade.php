@@ -21,3 +21,4 @@
 
 <!-- App js -->
 <script src="/assets/admin/js/app.js"></script>
+<script src="/assets/admin/js/pages/password-addon.init.js"></script>
