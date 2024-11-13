@@ -153,7 +153,7 @@
                             <input id="customizer-theme02" name="data-theme" type="radio" value="saas"
                                 class="form-check-input">
                             <label class="form-check-label p-0" for="customizer-theme02">
-                                <img src="https://themesbrand.com/velzon/assets/images/demo//saas.png" alt=""
+                                <img src="https://themesbrand.com/velzon/assets/images/demo/saas.png" alt=""
                                     class="img-fluid">
                             </label>
                         </div>
@@ -175,8 +175,8 @@
                             <input id="customizer-theme04" name="data-theme" type="radio" value="galaxy"
                                 class="form-check-input">
                             <label class="form-check-label p-0" for="customizer-theme04">
-                                <img src="https://themesbrand.com/velzon/assets/images/demo//galaxy.png"
-                                    alt="" class="img-fluid">
+                                <img src="https://themesbrand.com/velzon/assets/images/demo/galaxy.png" alt=""
+                                    class="img-fluid">
                             </label>
                         </div>
                         <h5 class="fs-13 text-center fw-medium mt-2">Galaxy</h5>
@@ -186,7 +186,7 @@
                             <input id="customizer-theme05" name="data-theme" type="radio" value="material"
                                 class="form-check-input">
                             <label class="form-check-label p-0" for="customizer-theme05">
-                                <img src="https://themesbrand.com/velzon/assets/images/demo//material.png"
+                                <img src="https://themesbrand.com/velzon/assets/images/demo/material.png"
                                     alt="" class="img-fluid">
                             </label>
                         </div>
@@ -829,7 +829,7 @@
                             <input class="form-check-input" type="radio" name="data-sidebar-image"
                                 id="sidebarimg-01" value="img-1">
                             <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-01">
-                                <img src="assets/images/sidebar/img-1.jpg" alt=""
+                                <img src="/assets/admin/images/sidebar/img-1.jpg" alt=""
                                     class="avatar-md w-auto object-fit-cover">
                             </label>
                         </div>
@@ -838,7 +838,7 @@
                             <input class="form-check-input" type="radio" name="data-sidebar-image"
                                 id="sidebarimg-02" value="img-2">
                             <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-02">
-                                <img src="assets/images/sidebar/img-2.jpg" alt=""
+                                <img src="/assets/admin/images/sidebar/img-2.jpg" alt=""
                                     class="avatar-md w-auto object-fit-cover">
                             </label>
                         </div>
@@ -846,7 +846,7 @@
                             <input class="form-check-input" type="radio" name="data-sidebar-image"
                                 id="sidebarimg-03" value="img-3">
                             <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-03">
-                                <img src="assets/images/sidebar/img-3.jpg" alt=""
+                                <img src="/assets/admin/images/sidebar/img-3.jpg" alt=""
                                     class="avatar-md w-auto object-fit-cover">
                             </label>
                         </div>
@@ -854,7 +854,7 @@
                             <input class="form-check-input" type="radio" name="data-sidebar-image"
                                 id="sidebarimg-04" value="img-4">
                             <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-04">
-                                <img src="assets/images/sidebar/img-4.jpg" alt=""
+                                <img src="/assets/admin/images/sidebar/img-4.jpg" alt=""
                                     class="avatar-md w-auto object-fit-cover">
                             </label>
                         </div>

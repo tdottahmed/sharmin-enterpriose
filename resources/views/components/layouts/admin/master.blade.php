@@ -84,6 +84,7 @@
 
     <x-layouts.admin.includes.theme-settings />
     <x-layouts.admin.includes.scripts />
+    @stack('scripts')
 </body>
 
 </html>

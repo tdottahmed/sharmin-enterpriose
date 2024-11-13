@@ -31,6 +31,30 @@
                 </x-slot>
             </x-data-display.card>
         </div>
+        <div class="col-lg-6">
+            <h3>Data Table</h3>
+            <hr>
+            <x-data-display.card>
+                <x-slot name="header">
+                    <h5 class="card-title">Special title treatment</h5>
+                </x-slot>
+                <x-data-display.data-table />
+                <x-slot name="footer">
+                    footer text
+                </x-slot>
+            </x-data-display.card>
+        </div>
     </div>
-
+    <div class="row">
+        <div class="col-lg-6">
+            <h3>Alert</h3>
+            <hr>
+            <x-data-display.sweet-alert />
+        </div>
+        <div class="col-lg-6">
+            <h3>Select 2</h3>
+            <hr>
+            <x-data-entry.select />
+        </div>
+    </div>
 </x-layouts.admin.master>

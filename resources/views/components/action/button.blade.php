@@ -1,5 +1,5 @@
 @props([
-    'type' => 'button',
+    'type' => 'submit',
     'variant' => 'success',
     'icon' => 'ri-check-line',
     'disabled' => false,
