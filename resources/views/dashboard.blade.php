@@ -38,7 +38,6 @@
                 <x-slot name="header">
                     <h5 class="card-title">Special title treatment</h5>
                 </x-slot>
-                <x-data-display.data-table />
                 <x-slot name="footer">
                     footer text
                 </x-slot>

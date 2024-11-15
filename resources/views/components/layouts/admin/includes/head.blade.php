@@ -22,5 +22,7 @@
 <link href="/assets/admin/css/app.min.css" rel="stylesheet" type="text/css" />
 <!-- custom Css-->
 <link href="/assets/admin/css/custom.min.css" rel="stylesheet" type="text/css" />
+<link href="/assets/admin/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
 
 @stack('styles')

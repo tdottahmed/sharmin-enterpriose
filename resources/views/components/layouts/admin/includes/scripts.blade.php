@@ -27,3 +27,4 @@
 <script src="/assets/admin/js/app.js"></script>
 <script src="/assets/admin/js/pages/password-addon.init.js"></script>
 <script src="/assets/frontend/js/jquery.min.js"></script>
+<script src="/assets/admin/libs/sweetalert2/sweetalert2.min.js"></script>

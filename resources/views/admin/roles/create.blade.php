@@ -5,6 +5,8 @@
         </x-slot>
         <x-data-entry.form action="{{ route('roles.store') }}" method="POST">
             <x-data-entry.input type="text" name="name" label="Role Name" placeholder="Role Name" required />
+            <label for="permissions" class="form-label">Permissions</label>
+            <x-permission-accordion :permission-groups="$permissionGroups" />
         </x-data-entry.form>
     </x-data-display.card>
 </x-layouts.admin.master>

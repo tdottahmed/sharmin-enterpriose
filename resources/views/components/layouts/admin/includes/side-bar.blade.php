@@ -76,7 +76,7 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                 <x-layouts.admin.partials.sidebar-menu-item route="users.index" icon="ri-dashboard-line"
-                    label="Dashboard" />
+                    label="Users" />
                 <x-layouts.admin.partials.sidebar-menu-item route="roles.index" icon="ri-user-2-line"
                     label="User Management" :dropdown-routes="[
                         'roles.index' => 'Roles',

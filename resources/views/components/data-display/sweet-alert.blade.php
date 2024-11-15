@@ -1,13 +1,38 @@
-<button type="button" class="btn btn-primary btn-sm" id="sa-success">Click me</button>
-<button type="button" class="btn btn-primary btn-sm" id="sa-params">For delete</button>
-
 @push('scripts')
     <!-- Sweet Alerts js -->
-    <script src="/assets/admin/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script>
+        @if (session('success'))
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    title: "Success!",
+                    text: "{{ session('success') }}",
+                    icon: "success",
+                    timer: 3000,
+                    customClass: {
+                        confirmButton: "btn btn-primary w-xs mt-2",
+                        cancelButton: "btn btn-danger w-xs mt-2",
+                    },
+                    buttonsStyling: !1,
+                    showCloseButton: !0,
+                });
+            });
+        @endif
 
-    <!-- Sweet alert init js-->
-    <script src="/assets/admin/js/pages/sweetalerts.init.js"></script>
-@endpush
-@push('styles')
-    <link href="/assets/admin/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+        @if (session('error'))
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    title: "Error!",
+                    text: "{{ session('error') }}",
+                    icon: "error",
+                    timer: 3000,
+                    customClass: {
+                        confirmButton: "btn btn-primary w-xs mt-2",
+                        cancelButton: "btn btn-danger w-xs mt-2",
+                    },
+                    buttonsStyling: !1,
+                    showCloseButton: !0,
+                });
+            });
+        @endif
+    </script>
 @endpush
