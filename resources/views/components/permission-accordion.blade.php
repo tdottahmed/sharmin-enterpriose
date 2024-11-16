@@ -1,3 +1,5 @@
+@props(['permissionGroups', 'role' => []])
+{{-- @dd($role->permissions->groupBy('group')); --}}
 <div id="permissionsAccordion" class="accordion accordion-flush">
     @foreach ($permissionGroups as $key => $group)
         @php
@@ -15,8 +17,9 @@
                 aria-labelledby="heading-{{ $groupId }}" data-bs-parent="#permissionsAccordion">
                 <div class="accordion-body">
                     <div class="form-check mb-2">
-                        <input class="form-check-input select-all" type="checkbox" id="selectAll-{{ $groupId }}"
-                            data-group="{{ $groupId }}">
+                        <input class="form-check-input select-all-permissions" type="checkbox"
+                            id="selectAll-{{ $groupId }}" data-group="{{ $groupId }}"
+                            {{ !empty($role) && $group->every(fn($permission) => $role->permissions->contains('id', $permission['id'])) ? 'checked' : '' }} />
                         <label class="form-check-label fw-bold" for="selectAll-{{ $groupId }}">
                             Select All {{ $key }}
                         </label>
@@ -25,8 +28,9 @@
                         @foreach ($group as $permission)
                             <div class="form-check">
                                 <input class="form-check-input permission-checkbox" type="checkbox" name="permissions[]"
-                                    value="{{ $permission['id'] }}" data-group="{{ $key }}"
-                                    id="{{ $key }}-{{ $permission['name'] }}">
+                                    value="{{ $permission['id'] }}" data-group="{{ $groupId }}"
+                                    id="{{ $key }}-{{ $permission['name'] }}"
+                                    @if (!empty($role) && $role->permissions->contains('id', $permission['id'])) checked @endif>
                                 <label class="form-check-label" for="{{ $key }}-{{ $permission['name'] }}">
                                     {{ $permission['name'] }}
                                 </label>
@@ -42,23 +46,47 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('.select-all').on('change', function() {
-                const group = $(this).data('group');
-                $(`.permission-checkbox[data-group="${group}"]`).prop('checked', this.checked);
+            // Update "Select All" checkbox when individual checkboxes are toggled
+            $('.permission-checkbox').on('change', function() {
+                var groupId = $(this).data('group'); // Group identifier from data-group attribute
+                var allChecked = true;
+
+                // Check if all checkboxes in the group are selected
+                $('.permission-checkbox[data-group="' + groupId + '"]').each(function() {
+                    if (!$(this).is(':checked')) {
+                        allChecked = false; // Found an unchecked box
+                        return false; // Exit loop
+                    }
+                });
+
+                // Update "Select All" checkbox for the group
+                $('#selectAll-' + groupId).prop('checked', allChecked);
             });
 
-            // When any permission checkbox is clicked, check if "Select All" should be updated
-            $('.permission-checkbox').change(function() {
-                const group = $(this).data('group');
-                const totalCheckboxes = $(`.permission-checkbox[data-group="${group}"]`).length;
-                const checkedCheckboxes = $(`.permission-checkbox[data-group="${group}"]:checked`).length;
+            // Select/Deselect all checkboxes in a group when "Select All" is toggled
+            $('.select-all-permissions').on('change', function() {
+                var groupId = $(this).data('group'); // Group identifier from data-group attribute
+                var isChecked = $(this).is(':checked');
 
-                // If all checkboxes are checked, check the "Select All" box, otherwise uncheck it
-                if (totalCheckboxes === checkedCheckboxes) {
-                    $(`#selectAll-${group}`).prop('checked', true);
-                } else {
-                    $(`#selectAll-${group}`).prop('checked', false);
-                }
+                // Update all individual checkboxes in the group
+                $('.permission-checkbox[data-group="' + groupId + '"]').prop('checked', isChecked);
+            });
+
+            // Initialize "Select All" checkboxes on page load
+            $('.select-all-permissions').each(function() {
+                var groupId = $(this).data('group'); // Group identifier from data-group attribute
+                var allChecked = true;
+
+                // Check if all checkboxes in the group are selected
+                $('.permission-checkbox[data-group="' + groupId + '"]').each(function() {
+                    if (!$(this).is(':checked')) {
+                        allChecked = false; // Found an unchecked box
+                        return false; // Exit loop
+                    }
+                });
+
+                // Set the initial state of the "Select All" checkbox
+                $(this).prop('checked', allChecked);
             });
         });
     </script>

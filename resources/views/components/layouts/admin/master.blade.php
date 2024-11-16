@@ -56,7 +56,9 @@
 
             <div class="page-content">
                 <div class="container-fluid">
+                    <x-data-display.modal id="ajaxModal" />
                     {{ $slot }}
+
                 </div>
                 <!-- container-fluid -->
             </div>
@@ -85,6 +87,7 @@
     <x-layouts.admin.includes.theme-settings />
     <x-layouts.admin.includes.scripts />
     <x-data-display.sweet-alert />
+
     @stack('scripts')
 </body>
 

@@ -8,7 +8,7 @@
     $method = $model ? 'PATCH' : $method;
 @endphp
 
-<form action="{{ $action }}" method="POST">
+<form action="{{ $action }}" method="POST" enctype="multipart/form-data">
     @csrf
     @if ($model)
         @method('PATCH')

@@ -3,7 +3,8 @@
     'title' => 'Modal Title',
 ])
 
-<div class="modal fade" id="{{ $id }}" tabindex="-1" aria-labelledby="{{ $id }}Label" aria-hidden="true">
+<div class="modal fade" id="{{ $id }}" tabindex="-1" aria-labelledby="{{ $id }}Label"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -16,6 +17,7 @@
             <div class="modal-footer">
                 <x-slot name="footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <!-- Form submit will work as usual here -->
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </x-slot>
             </div>
