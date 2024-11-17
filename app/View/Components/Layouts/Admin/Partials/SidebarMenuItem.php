@@ -40,8 +40,10 @@ class SidebarMenuItem extends Component
      */
     public function isRouteActive($route)
     {
+        // dd($this->dropdownRoutes);
+
         // Check for wildcard matches (e.g., 'roles.*')
-        return request()->routeIs("{$route}*");
+        return request()->routeIs("{$route}.*");
     }
 
     /**

@@ -12,10 +12,16 @@ class PermissionController extends Controller
 
     public function __construct()
     {
-        $this->middleware('permission:view permissions|create permissions|update permissions|delete permissions', ['only' => ['index', 'store']]);
-        $this->middleware('permission:create permissions', ['only' => ['create', 'store']]);
-        $this->middleware('permission:update permissions', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:delete permissions', ['only' => ['destroy']]);
+        $permissions = [
+            'view permission' => ['index'],
+            'create permission' => ['create', 'store'],
+            'update permission' => ['edit', 'update'],
+            'delete permission' => ['destroy'],
+        ];
+
+        foreach ($permissions as $permission => $actions) {
+            $this->middleware("permission:{$permission}", ['only' => $actions]);
+        }
     }
 
     /**
@@ -44,11 +50,10 @@ class PermissionController extends Controller
     {
         try {
             $request->handle();
-            return redirect()->route('permissions.index')
-                ->with('success', 'Permission created successfully');
+            return $this->redirectWithSuccess('Permission created successfully');
         } catch (\Throwable $th) {
             Log::error('Permission creation failed: ' . $th->getMessage());
-            return back()->with('error', 'Something went wrong. Please try again.');
+            return $this->redirectWithError('Something went wrong. Please try again.');
         }
     }
 
@@ -57,20 +62,15 @@ class PermissionController extends Controller
         return view('admin.permissions.edit', compact('permission'));
     }
 
-    public function show(Permission $permission)
-    {
-        return view('admin.permissions.show', compact('permission'));
-    }
 
     public function update(PermissionRequest $request, Permission $permission)
     {
         try {
             $request->handle($permission);
-            return redirect()->route('permissions.index')
-                ->with('success', 'Permission updated successfully');
+            $this->redirectWithSuccess('Permission updated successfully');
         } catch (\Throwable $th) {
             Log::error('Permission update failed: ' . $th->getMessage());
-            return back()->with('error', 'Something went wrong. Please try again.');
+            return $this->redirectWithError('Something went wrong. Please try again.');
         }
     }
 
@@ -78,11 +78,21 @@ class PermissionController extends Controller
     {
         try {
             $permission->delete();
-            return redirect()->route('permissions.index')
-                ->with('success', 'Permission deleted successfully');
+            return $this->redirectWithSuccess('Permission deleted successfully');
         } catch (\Throwable $th) {
             Log::error('Permission deletion failed: ' . $th->getMessage());
-            return back()->with('error', 'Something went wrong. Please try again.');
+            return $this->redirectWithError('Something went wrong. Please try again.');
         }
+    }
+
+    private function redirectWithSuccess($message)
+    {
+        return redirect()->route('users.index')
+            ->with('success', $message);
+    }
+
+    private function redirectWithError($message)
+    {
+        return back()->with('error', $message);
     }
 }

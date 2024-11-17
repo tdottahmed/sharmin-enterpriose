@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\Admin;
 
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class PermissionRequest extends FormRequest
 {
@@ -12,7 +14,7 @@ class PermissionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::user()->can('create permission') || Auth::user()->can('update permission');
     }
 
     /**
@@ -22,10 +24,11 @@ class PermissionRequest extends FormRequest
      */
     public function rules(): array
     {
+        $permissionId = $this->route('permission')?->id;
         return [
-            'name' => 'required|max:255|unique:permissions,name,' . $this->route('permission')->id,
+            'name' => 'required|max:255|unique:permissions,name,' . $permissionId,
             'guard_name' => 'nullable|max:255',
-            'group_name' => 'required|max:255',
+            'group' => 'required|max:255',
         ];
     }
 
@@ -41,12 +44,15 @@ class PermissionRequest extends FormRequest
 
     public function store($data)
     {
-        return Permission::create($data);
+        DB::transaction(function () use ($data) {
+            return Permission::create($data);
+        });
     }
 
     public function update(Permission $permission, $data)
     {
-        $permission->update($data);
-        return $permission;
+        DB::transaction(function () use ($permission, $data) {
+            $permission->update($data);
+        });
     }
 }

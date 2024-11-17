@@ -75,14 +75,14 @@
             </div>
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
-                <x-layouts.admin.partials.sidebar-menu-item route="users.index" icon="ri-dashboard-line"
-                    label="Users" />
+                <x-layouts.admin.partials.sidebar-menu-item route="dashboard" icon="ri-dashboard-line"
+                    label="Dashboard" />
                 <x-layouts.admin.partials.sidebar-menu-item route="roles.index" icon="ri-user-2-line"
-                    label="User Management" :dropdown-routes="[
+                    label="Users Management" :dropdown-routes="[
                         'roles.index' => 'Roles',
                         'permissions.index' => 'Permissions',
+                        'users.index' => 'Users',
                     ]" />
-
             </ul>
         </div>
         <!-- Sidebar -->

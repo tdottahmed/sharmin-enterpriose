@@ -7,10 +7,10 @@ use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Permission;
-use App\Http\Requests\Admin\UserRoleRequest;
+use App\Http\Requests\Admin\RoleRequest;
 use Illuminate\Support\Facades\Log;
 
-class UserRoleController extends Controller
+class RoleController extends Controller
 {
     /**
      * UserRoleController constructor.
@@ -51,10 +51,10 @@ class UserRoleController extends Controller
     /**
      * Store a newly created role in storage.
      *
-     * @param  \App\Http\Requests\Admin\UserRoleRequest  $request
+     * @param  \App\Http\Requests\Admin\RoleRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(UserRoleRequest $request): RedirectResponse
+    public function store(RoleRequest $request): RedirectResponse
     {
         try {
             $request->handle();
@@ -92,11 +92,11 @@ class UserRoleController extends Controller
     /**
      * Update the specified role in storage.
      *
-     * @param  \App\Http\Requests\Admin\UserRoleRequest  $request
+     * @param  \App\Http\Requests\Admin\RoleRequest  $request
      * @param  \Spatie\Permission\Models\Role  $role
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UserRoleRequest $request, Role $role): RedirectResponse
+    public function update(RoleRequest $request, Role $role): RedirectResponse
     {
         try {
             $request->handle($role);

@@ -7,13 +7,6 @@
                     icon="ri-add-line">{{ __('Create Role') }}</x-action.link>
             </div>
         </x-slot>
-        <x-data-display.data-table :rows="$roles" :extraActions="[
-            'permissions' => [
-                'title' => 'Permissions',
-                'method' => 'GET',
-                'route' => 'permissions.index',
-                'icon' => 'ri-user-2-line',
-            ],
-        ]" :columnsToIgnore="['created_at', 'updated_at']" />
+        <x-data-display.data-table :rows="$roles" :columnsToIgnore="['created_at', 'updated_at']" />
     </x-data-display.card>
 </x-layouts.admin.master>

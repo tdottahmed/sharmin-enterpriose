@@ -6,6 +6,6 @@
                 <x-action.link href="{{ route('users.create') }}" icon="ri-add-line">Create user</x-action.link>
             </div>
         </x-slot>
-        {{-- <x-data-display.data-table :data="$roles" />         --}}
+        <x-data-display.data-table :rows="$users" :columnsToIgnore="['password', 'remember_token', 'email_verified_at']" />
     </x-data-display.card>
 </x-layouts.admin.master>

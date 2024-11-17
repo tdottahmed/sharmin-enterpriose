@@ -7,6 +7,6 @@
                     icon="ri-add-line">{{ __('Create Permission') }}</x-action.link>
             </div>
         </x-slot>
-        <x-data-display.data-table :rows="$permissions" />
+        <x-data-display.data-table :rows="$permissions" :ignoreActions="['show']" />
     </x-data-display.card>
 </x-layouts.admin.master>

@@ -3,7 +3,7 @@
         <x-slot name="header">
             <h5 class="card-title">Roles List</h5>
         </x-slot>
-        <x-data-entry.form action="{{ route('user.store') }}" method="POST">
+        <x-data-entry.form action="{{ route('users.store') }}" method="POST">
             <x-data-entry.input type="text" name="name" label="Name" placeholder="Name" required />
             <x-data-entry.input type="email" name="email" label="Email" placeholder="Email" required />
             <x-data-entry.input type="password" name="password" label="Password" placeholder="Password" required />
@@ -13,7 +13,7 @@
                 <label for="role">Role</label>
                 <select name="role" class="form-control" id="role">
                     @foreach ($roles as $role)
-                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                        <option value="{{ $role->name }}">{{ $role->name }}</option>
                     @endforeach
                 </select>
             </div>

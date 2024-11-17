@@ -1,6 +1,6 @@
 <li class="nav-item">
     <!-- Main Menu Item -->
-    <a class="nav-link menu-link {{ $isActive() ? 'active' : '' }}"
+    <a class="nav-link menu-link {{ $isActive ? 'active' : '' }}"
         @if (!empty($dropdownRoutes)) href="#{{ Str::slug($label) }}"
          data-bs-toggle="collapse" 
          @else href="{{ route($route) }}" @endif
@@ -14,7 +14,7 @@
                 @foreach ($dropdownRoutes as $route => $subLabel)
                     <li class="nav-item">
                         <a href="{{ route($route) }}"
-                            class="nav-link {{ request()->routeIs($route) ? 'active' : '' }}"
+                            class="nav-link {{ request()->routeIs(str($route)->explode('.')->first() . '*') ? 'active' : '' }}"
                             data-key="t-{{ Str::slug($subLabel) }}">
                             {{ $subLabel }}
                         </a>

@@ -3,10 +3,11 @@
 namespace App\View\Components\DataDisplay;
 
 use Closure;
-use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Illuminate\View\Component;
+use Illuminate\Support\Collection;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Model;
 
 class DataTable extends Component
 {
@@ -14,7 +15,8 @@ class DataTable extends Component
     public array $extraActions;
     public bool $showCreatedAt;
     public bool $showUpdatedAt;
-    public array $columnsToIgnore; // Add this property to hold ignored columns
+    public array $columnsToIgnore;
+    public array $ignoreActions = [];
 
     /**
      * Create a new component instance.
@@ -24,15 +26,17 @@ class DataTable extends Component
      * @param  bool $createAt
      * @param  bool $updatedAt
      * @param  array $columnsToIgnore
+     * @param  array $ignoreActions  
      * @return void
      */
-    public function __construct($rows, array $extraActions = [], bool $createAt = false, bool $updatedAt = false, array $columnsToIgnore = [])
+    public function __construct($rows, array $extraActions = [], bool $createAt = false, bool $updatedAt = false, array $columnsToIgnore = [], array $ignoreActions = [])
     {
-        $this->rows = collect($rows); // Ensure rows are a collection for easier handling
+        $this->rows = collect($rows);
         $this->extraActions = $extraActions;
         $this->showCreatedAt = $createAt;
         $this->showUpdatedAt = $updatedAt;
-        $this->columnsToIgnore = $columnsToIgnore; // Assign ignored columns
+        $this->columnsToIgnore = $columnsToIgnore;
+        $this->ignoreActions = $ignoreActions;
     }
 
     /**
@@ -43,38 +47,47 @@ class DataTable extends Component
      */
     public function getActions(Model $row): array
     {
-        $defaultActions = [
-            'edit' => [
+        $defaultActions = [];
+
+        if (Route::has($row->getTable() . '.edit')) {
+            $defaultActions['edit'] = [
                 'title' => 'Edit',
                 'method' => 'GET',
                 'icon' => 'ri-pencil-fill',
                 'route' => route($row->getTable() . '.edit', $row->id),
-            ],
-            'delete' => [
+            ];
+        }
+        if (Route::has($row->getTable() . '.destroy')) {
+            $defaultActions['delete'] = [
                 'title' => 'Delete',
                 'method' => 'DELETE',
                 'icon' => 'ri-delete-bin-fill',
                 'route' => route($row->getTable() . '.destroy', $row->id),
-            ],
-            'show' => [
+            ];
+        }
+        if (Route::has($row->getTable() . '.show')) {
+            $defaultActions['show'] = [
                 'title' => 'Show',
                 'method' => 'GET',
                 'icon' => 'ri-eye-fill',
                 'route' => route($row->getTable() . '.show', $row->id),
-            ],
-        ];
+            ];
+        }
+        foreach ($this->ignoreActions as $ignoreAction) {
+            unset($defaultActions[$ignoreAction]);
+        }
 
-        $extraActions = array_map(function ($action) use ($row) {
+        $extraActions = collect($this->extraActions)->map(function ($action) use ($row) {
             return [
                 'title' => $action['title'],
                 'method' => $action['method'],
                 'icon' => $action['icon'],
                 'route' => route($action['route'], $row->id),
             ];
-        }, $this->extraActions);
-
+        })->toArray();
         return array_merge($defaultActions, $extraActions);
     }
+
 
     /**
      * Filter visible columns for the table.
@@ -94,6 +107,7 @@ class DataTable extends Component
                     ($this->showUpdatedAt && $column === 'updated_at'));
         });
     }
+
     /**
      * Get the view / contents that represent the component.
      *

@@ -7,6 +7,8 @@
                     icon="ri-list-check">{{ __('Permission List') }}</x-action.link>
             </div>
         </x-slot>
-
+        <h3> {{ __('Name') }} {{ $permission->name }}</h3>
+        <p> {{ __('Group') }} {{ $permission->group }}</p>
+        <p> {{ __('Guard') }} {{ $permission->guard }}</p>
     </x-data-display.card>
 </x-layouts.admin.master>
