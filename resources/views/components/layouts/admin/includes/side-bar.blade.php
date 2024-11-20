@@ -83,6 +83,12 @@
                         'permissions.index' => 'Permissions',
                         'users.index' => 'Users',
                     ]" />
+                <x-layouts.admin.partials.sidebar-menu-item route="#" icon="ri-settings-2-line" label="Settings"
+                    :dropdown-routes="[
+                        'roles.index' => 'Roles',
+                        'permissions.index' => 'Permissions',
+                        'users.index' => 'Users',
+                    ]" />
             </ul>
         </div>
         <!-- Sidebar -->
