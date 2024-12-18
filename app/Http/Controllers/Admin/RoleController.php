@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Permission;
 use App\Http\Requests\Admin\RoleRequest;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Log;
 
 class RoleController extends Controller
