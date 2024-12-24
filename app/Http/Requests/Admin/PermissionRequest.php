@@ -32,6 +32,12 @@ class PermissionRequest extends FormRequest
         ];
     }
 
+    /**
+     * Handle the permission creation or update.
+     *
+     * @param  Permission|null  $permission The permission to update.
+     * @return Permission The updated or created permission.
+     */
     public function handle($permission = null)
     {
         if ($permission) {
