@@ -29,6 +29,12 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'view permission', 'group' => 'Permission Management']);
         Permission::create(['name' => 'update permission', 'group' => 'Permission Management']);
         Permission::create(['name' => 'delete permission', 'group' => 'Permission Management']);
+        
+        // Create Permissions for permissions
+        Permission::create(['name' => 'create category', 'group' => 'category Management']);
+        Permission::create(['name' => 'view category', 'group' => 'category Management']);
+        Permission::create(['name' => 'update category', 'group' => 'category Management']);
+        Permission::create(['name' => 'delete category', 'group' => 'category Management']);
 
         // Create Roles
         $superAdminRole = Role::create(['name' => 'super-admin']);

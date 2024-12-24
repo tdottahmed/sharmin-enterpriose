@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Spatie\Permission\Models\Permission;
 use App\Http\Requests\Admin\RoleRequest;
-use GuzzleHttp\Psr7\Request;
-use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
