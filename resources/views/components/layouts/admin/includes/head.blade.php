@@ -5,6 +5,7 @@
 <meta content="Themesbrand" name="author" />
 <!-- App favicon -->
 <link rel="shortcut icon" href="/assets/admin/images/favicon.ico">
+<link href="/assets/admin/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 
 <!-- jsvectormap css -->
 <link href="/assets/admin/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
@@ -23,6 +24,5 @@
 <!-- custom Css-->
 <link href="/assets/admin/css/custom.min.css" rel="stylesheet" type="text/css" />
 <link href="/assets/admin/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-
 
 @stack('styles')

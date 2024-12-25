@@ -77,20 +77,16 @@
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                 <x-layouts.admin.partials.sidebar-menu-item route="dashboard" icon="ri-dashboard-line"
                     label="Dashboard" />
+                <x-layouts.admin.partials.sidebar-menu-item route="clients.index" icon=" ri-user-heart-fill"
+                    label="Clients" />
+                <x-layouts.admin.partials.sidebar-menu-item route="orders.index" icon="ri-store-2-line"
+                    label="Orders Management" />
                 <x-layouts.admin.partials.sidebar-menu-item route="roles.index" icon="ri-user-2-line"
                     label="Users Management" :dropdown-routes="[
                         'roles.index' => 'Roles',
                         'permissions.index' => 'Permissions',
                         'users.index' => 'Users',
                     ]" />
-                <x-layouts.admin.partials.sidebar-menu-item route="#" icon="ri-settings-2-line" label="Settings"
-                    :dropdown-routes="[
-                        'roles.index' => 'Roles',
-                        'permissions.index' => 'Permissions',
-                        'users.index' => 'Users',
-                    ]" />
-                <x-layouts.admin.partials.sidebar-menu-item route="categories.index" icon="ri-apps-2-line"
-                    label="Categories" />
             </ul>
         </div>
         <!-- Sidebar -->

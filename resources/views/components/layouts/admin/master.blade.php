@@ -84,11 +84,12 @@
         </div>
     </div>
 
+
+
     <x-layouts.admin.includes.theme-settings />
     <x-layouts.admin.includes.scripts />
     <x-data-display.sweet-alert />
 
-    @stack('scripts')
 </body>
 
 </html>

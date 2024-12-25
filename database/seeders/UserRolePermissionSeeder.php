@@ -12,41 +12,53 @@ class UserRolePermissionSeeder extends Seeder
 {
     public function run(): void
     {
-        // Create Permissions for roles
-        Permission::create(['name' => 'create role', 'group' => 'Role Management']);
-        Permission::create(['name' => 'view role', 'group' => 'Role Management']);
-        Permission::create(['name' => 'update role', 'group' => 'Role Management']);
-        Permission::create(['name' => 'delete role', 'group' => 'Role Management']);
+        // Define permissions
+        $permissions = [
+            ['name' => 'create role', 'group' => 'Role Management'],
+            ['name' => 'view role', 'group' => 'Role Management'],
+            ['name' => 'update role', 'group' => 'Role Management'],
+            ['name' => 'delete role', 'group' => 'Role Management'],
 
-        // Create Permissions for users
-        Permission::create(['name' => 'create user', 'group' => 'User Management']);
-        Permission::create(['name' => 'view user', 'group' => 'User Management']);
-        Permission::create(['name' => 'update user', 'group' => 'User Management']);
-        Permission::create(['name' => 'delete user', 'group' => 'User Management']);
+            ['name' => 'create user', 'group' => 'User Management'],
+            ['name' => 'view user', 'group' => 'User Management'],
+            ['name' => 'update user', 'group' => 'User Management'],
+            ['name' => 'delete user', 'group' => 'User Management'],
 
-        // Create Permissions for permissions
-        Permission::create(['name' => 'create permission', 'group' => 'Permission Management']);
-        Permission::create(['name' => 'view permission', 'group' => 'Permission Management']);
-        Permission::create(['name' => 'update permission', 'group' => 'Permission Management']);
-        Permission::create(['name' => 'delete permission', 'group' => 'Permission Management']);
-        
-        // Create Permissions for permissions
-        Permission::create(['name' => 'create category', 'group' => 'category Management']);
-        Permission::create(['name' => 'view category', 'group' => 'category Management']);
-        Permission::create(['name' => 'update category', 'group' => 'category Management']);
-        Permission::create(['name' => 'delete category', 'group' => 'category Management']);
+            ['name' => 'create permission', 'group' => 'Permission Management'],
+            ['name' => 'view permission', 'group' => 'Permission Management'],
+            ['name' => 'update permission', 'group' => 'Permission Management'],
+            ['name' => 'delete permission', 'group' => 'Permission Management'],
 
-        // Create Roles
-        $superAdminRole = Role::create(['name' => 'super-admin']);
-        $adminRole = Role::create(['name' => 'admin']);
-        $staffRole = Role::create(['name' => 'staff']);
-        $userRole = Role::create(['name' => 'user']);
+            // clients permissions
+            ['name' => 'create client', 'group' => 'Client Management'],
+            ['name' => 'view client', 'group' => 'Client Management'],
+            ['name' => 'update client', 'group' => 'Client Management'],
+            ['name' => 'delete client', 'group' => 'Client Management'],
 
-        // Assign all permissions to super-admin
-        $superAdminRole->givePermissionTo(Permission::all());
+            // Orders Permissions
+            ['name' => 'create orders', 'group' => 'Orders Management'],
+            ['name' => 'view orders', 'group' => 'Orders Management'],
+            ['name' => 'update orders', 'group' => 'Orders Management'],
+            ['name' => 'delete orders', 'group' => 'Orders Management'],
+        ];
 
-        // Assign specific permissions to admin
-        $adminRole->givePermissionTo([
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate(['name' => $permission['name']], $permission);
+        }
+
+        // Define roles
+        $roles = ['super-admin', 'admin', 'staff', 'user'];
+
+        foreach ($roles as $roleName) {
+            Role::firstOrCreate(['name' => $roleName]);
+        }
+
+        // Assign permissions to roles
+        $superAdminRole = Role::findByName('super-admin');
+        $superAdminRole->syncPermissions(Permission::all());
+
+        $adminRole = Role::findByName('admin');
+        $adminPermissions = [
             'create role',
             'view role',
             'update role',
@@ -54,35 +66,41 @@ class UserRolePermissionSeeder extends Seeder
             'view user',
             'update user',
             'create permission',
-            'view permission'
-        ]);
+            'view permission',
+        ];
+        $adminRole->syncPermissions($adminPermissions);
 
-        // Create Users and Assign Roles
-        $superAdminUser = User::firstOrCreate(
-            ['email' => 'superadmin@gmail.com'],
+        // Define users
+        $users = [
             [
+                'email' => 'superadmin@gmail.com',
                 'name' => 'Super Admin',
-                'password' => Hash::make('12345678'),
-            ]
-        );
-        $superAdminUser->assignRole($superAdminRole);
-
-        $adminUser = User::firstOrCreate(
-            ['email' => 'admin@gmail.com'],
+                'password' => '12345678',
+                'role' => 'super-admin',
+            ],
             [
+                'email' => 'admin@gmail.com',
                 'name' => 'Admin',
-                'password' => Hash::make('12345678'),
-            ]
-        );
-        $adminUser->assignRole($adminRole);
-
-        $staffUser = User::firstOrCreate(
-            ['email' => 'staff@gmail.com'],
+                'password' => '12345678',
+                'role' => 'admin',
+            ],
             [
+                'email' => 'staff@gmail.com',
                 'name' => 'Staff',
-                'password' => Hash::make('12345678'),
-            ]
-        );
-        $staffUser->assignRole($staffRole);
+                'password' => '12345678',
+                'role' => 'staff',
+            ],
+        ];
+
+        foreach ($users as $userData) {
+            $user = User::firstOrCreate(
+                ['email' => $userData['email']],
+                [
+                    'name' => $userData['name'],
+                    'password' => Hash::make($userData['password']),
+                ]
+            );
+            $user->assignRole($userData['role']);
+        }
     }
 }

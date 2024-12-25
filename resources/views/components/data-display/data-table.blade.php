@@ -37,7 +37,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="{{ count($columns) + 2 }}" class="text-center">
+                <td colspan="{{ count($columns) + 3 }}" class="text-center">
                     No data found
                 </td>
             </tr>

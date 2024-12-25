@@ -53,7 +53,9 @@
         <div class="col-lg-6">
             <h3>Select 2</h3>
             <hr>
-            <x-data-entry.select />
+            {{-- <x-data-entry.select /> --}}
         </div>
     </div>
+    <x-data-entry.uploader-dropzone />
+    <x-data-entry.date-picker name="date" />
 </x-layouts.admin.master>
