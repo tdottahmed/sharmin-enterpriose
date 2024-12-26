@@ -40,6 +40,12 @@ class UserRolePermissionSeeder extends Seeder
             ['name' => 'view orders', 'group' => 'Orders Management'],
             ['name' => 'update orders', 'group' => 'Orders Management'],
             ['name' => 'delete orders', 'group' => 'Orders Management'],
+
+            // Orders Permissions
+            ['name' => 'create notes', 'group' => 'Notes Management'],
+            ['name' => 'view notes', 'group' => 'Notes Management'],
+            ['name' => 'update notes', 'group' => 'Notes Management'],
+            ['name' => 'delete notes', 'group' => 'Notes Management'],
         ];
 
         foreach ($permissions as $permission) {

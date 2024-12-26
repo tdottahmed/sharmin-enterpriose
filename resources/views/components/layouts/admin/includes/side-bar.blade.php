@@ -81,6 +81,8 @@
                     label="Clients" />
                 <x-layouts.admin.partials.sidebar-menu-item route="orders.index" icon="ri-store-2-line"
                     label="Orders Management" />
+                <x-layouts.admin.partials.sidebar-menu-item route="notes.index" icon="ri-file-list-3-line"
+                    label="Notes" />
                 <x-layouts.admin.partials.sidebar-menu-item route="roles.index" icon="ri-user-2-line"
                     label="Users Management" :dropdown-routes="[
                         'roles.index' => 'Roles',

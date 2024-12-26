@@ -58,4 +58,6 @@
     </div>
     <x-data-entry.uploader-dropzone />
     <x-data-entry.date-picker name="date" />
+    <x-data-entry.editor name="short_description" id="short_description">
+    </x-data-entry.editor>
 </x-layouts.admin.master>
