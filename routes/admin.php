@@ -14,5 +14,7 @@ Route::group(['middleware' => ['role:super-admin|admin|staff|user']], function (
     Route::resource('users', UserController::class);
     Route::resource('clients', ClientController::class);
     Route::resource('orders', OrderController::class);
+    Route::get('orders/complete/{order}', [OrderController::class, 'complete'])->name('orders.complete');
+    Route::get('orders/cancel/{order}', [OrderController::class, 'cancel'])->name('orders.cancel');
     Route::get('settings/organization', [ApplicationSetupController::class, 'organization'])->name('settings.organization');
 });

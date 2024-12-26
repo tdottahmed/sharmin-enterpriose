@@ -1,4 +1,7 @@
-<table id="scroll-horizontal" class="table nowrap align-middle" style="width:100%">
+@props([
+    'appendedColumns' => [],
+])
+<table id="scroll-horizontal" class="table nowrap align-middle dt-responsive" style="width:100%">
     <thead>
         <tr>
             <th scope="col" style="width: 10px;">
@@ -7,6 +10,11 @@
                 </div>
             </th>
             <th>{{ __('SL No') }}</th>
+            @isset($appendedColumns)
+                @foreach ($appendedColumns as $column)
+                    <th>{{ ucwords(str_replace('_', ' ', $column)) }}</th>
+                @endforeach
+            @endisset
             @foreach ($columns as $column)
                 <th>{{ ucwords(str_replace('_', ' ', $column)) }}</th>
             @endforeach
@@ -22,6 +30,11 @@
                     </div>
                 </th>
                 <td>{{ $loop->iteration }}</td>
+                @isset($appendedColumns)
+                    @foreach ($appendedColumns as $column)
+                        <td>{{ $row->$column }}</td>
+                    @endforeach
+                @endisset
                 @foreach ($columns as $column)
                     <td>
                         @if ($column === 'created_at' || $column === 'updated_at')

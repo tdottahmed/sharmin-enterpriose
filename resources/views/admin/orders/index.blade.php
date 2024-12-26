@@ -6,33 +6,22 @@
                 <x-action.link href="{{ route('orders.create') }}"
                     icon="ri-add-line">{{ __('Create Order') }}</x-action.link>
             </div>
-            <ul class="nav nav-pills nav-justified my-3" role="tablist">
-                <li class="nav-item waves-effect waves-light" role="presentation">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#pill-justified-home-1" role="tab"
-                        aria-selected="true">
-                        {{ __('All Orders') }}
-                    </a>
-                </li>
-                <li class="nav-item waves-effect waves-light" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#pill-justified-profile-1" role="tab"
-                        aria-selected="false" tabindex="-1">
-                        {{ __('Pending Orders') }}
-                    </a>
-                </li>
-                <li class="nav-item waves-effect waves-light" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#pill-justified-messages-1" role="tab"
-                        aria-selected="false" tabindex="-1">
-                        {{ __('Completed Orders') }}
-                    </a>
-                </li>
-                <li class="nav-item waves-effect waves-light" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#pill-justified-settings-1" role="tab"
-                        aria-selected="false" tabindex="-1">
-                        {{ __('Cancelled Orders') }}
-                    </a>
-                </li>
-            </ul>
+            @include('admin.orders.partials.tab-component')
         </x-slot>
-        <x-data-display.data-table :rows="$orders" :columnsToIgnore="['created_at', 'updated_at', 'image']" />
+        <x-data-display.data-table :rows="$orders" :columnsToIgnore="['created_at', 'updated_at', 'client_id', 'title', 'description', 'paid_amount']" :appendedColumns="['client_name', 'remaining_date']" :extraActions="[
+            [
+                'title' => 'Completed',
+                'method' => 'get',
+                'icon' => 'ri-check-line',
+                'route' => 'orders.complete',
+            ],
+            [
+                'title' => 'Cancelled',
+                'method' => 'get',
+                'icon' => 'ri-close-line',
+                'route' => 'orders.cancel',
+            ],
+        ]" />
+
     </x-data-display.card>
 </x-layouts.admin.master>

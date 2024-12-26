@@ -26,5 +26,6 @@
 <script src="/assets/admin/js/jquery.min.js"></script>
 <script src="/assets/admin/libs/sweetalert2/sweetalert2.min.js"></script>
 <script src="/assets/admin/libs/select2/js/select2.min.js"></script>
+<x-data-display.sweet-alert />
 
 @stack('scripts')
