@@ -1,14 +1,12 @@
 <li class="nav-item">
     @php
-        // Check if the current route matches the one passed or if it's a 'show' or 'edit' route
-$isDropdownActive = false;
-$isActive =
-    request()->routeIs($route) ||
-    request()->routeIs(implode('.', array_slice(explode('.', $route), 0, 1)) . '.*');
-
-if (!empty($dropdownRoutes)) {
-    foreach ($dropdownRoutes as $route => $subLabel) {
-        if (request()->routeIs($route) || request()->routeIs($route . '.*')) {
+        $isDropdownActive = false;
+        $isActive =
+            request()->routeIs($route) ||
+            request()->routeIs(implode('.', array_slice(explode('.', $route), 0, 1)) . '.*');
+        if (!empty($dropdownRoutes)) {
+            foreach ($dropdownRoutes as $route => $subLabel) {
+                if (request()->routeIs($route) || request()->routeIs($route . '.*')) {
                     $isDropdownActive = true;
                     break;
                 }
