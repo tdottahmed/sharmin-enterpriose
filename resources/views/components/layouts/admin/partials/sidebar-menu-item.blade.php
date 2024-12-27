@@ -1,7 +1,7 @@
 <li class="nav-item">
     @php
         $isDropdownActive = false;
-
+        $isActive = request()->routeIs($route) || request()->routeIs($route . '.*');
         if (!empty($dropdownRoutes)) {
             foreach ($dropdownRoutes as $route => $subLabel) {
                 if (request()->routeIs($route) || request()->routeIs($route . '.*')) {
@@ -11,7 +11,7 @@
             }
         }
     @endphp
-    <a class="nav-link menu-link"
+    <a class="nav-link menu-link {{ $isActive ? 'active' : '' }}"
         @if (!empty($dropdownRoutes)) href="#{{ Str::slug($label) }}" 
             data-bs-toggle="collapse" 
         @else 

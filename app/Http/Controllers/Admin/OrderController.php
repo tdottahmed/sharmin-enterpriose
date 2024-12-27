@@ -23,7 +23,16 @@ class OrderController extends Controller
 
     public function index()
     {
-        if (request('status') == 'pending' || request('status') == 'completed' || request('status') == 'cancelled') {
+        if (request()->has('search')) {
+            $searchQuery = request('search');
+            $orders = Order::where('order_no', 'like', "%{$searchQuery}%")
+                ->orWhere('status', 'like', "%{$searchQuery}%")
+                ->orWhereHas('client', function ($query) use ($searchQuery) {
+                    $query->where('name', 'like', "%{$searchQuery}%");
+                })
+                ->latest()
+                ->get();
+        } elseif (request('status') == 'pending' || request('status') == 'completed' || request('status') == 'cancelled') {
             $orders = Order::where('status', request('status'))->latest()->get();
         } else {
             $orders = Order::latest()->get();

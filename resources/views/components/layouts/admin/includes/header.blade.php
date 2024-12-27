@@ -34,14 +34,14 @@
                 </button>
 
                 <!-- App Search-->
-                <form class="app-search d-none d-md-block">
+                <form action="{{ route('orders.index') }}" class="app-search d-none d-md-block" method="get">
+
                     <div class="position-relative">
                         <div class="d-flex">
-                            <input type="text" class="form-control" placeholder="Search..." autocomplete="off"
-                            id="search-options" value="">
-                        <span class="mdi mdi-magnify search-widget-icon"></span>
-                        <button class="btn btn-primary" type="submit"><i
-                            class="mdi mdi-magnify"></i></button>
+                            <input type="text" class="form-control" name="search" placeholder="Search..."
+                                autocomplete="off" id="search-options" value="">
+                            <span class="mdi mdi-magnify search-widget-icon"></span>
+                            <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
                         </div>
                         <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none"
                             id="search-close-options"></span>
@@ -59,10 +59,10 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                         aria-labelledby="page-header-search-dropdown">
-                        <form class="p-3">
+                        <form action="{{ route('orders.index') }}" class="p-3" method="get">
                             <div class="form-group m-0">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search ..."
+                                    <input type="text" name="search" class="form-control" placeholder="Search ..."
                                         aria-label="Recipient's username">
                                     <button class="btn btn-primary" type="submit"><i
                                             class="mdi mdi-magnify"></i></button>

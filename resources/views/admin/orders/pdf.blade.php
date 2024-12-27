@@ -117,15 +117,15 @@
             </tr>
             <tr>
                 <td>Total Amount</td>
-                <td>{{ number_format($order->total_amount, 2) }}</td>
+                <td><i class="mdi mdi-currency-bdt"></i>{{ number_format($order->total_amount, 2) }}</td>
             </tr>
             <tr>
                 <td>Paid Amount</td>
-                <td>{{ number_format($order->paid_amount, 2) }}</td>
+                <td><i class="mdi mdi-currency-bdt"></i>{{ number_format($order->paid_amount, 2) }}</td>
             </tr>
             <tr>
                 <td>Due Amount</td>
-                <td>{{ number_format($order->due_amount, 2) }}</td>
+                <td><i class="mdi mdi-currency-bdt"></i>{{ number_format($order->due_amount, 2) }}</td>
             </tr>
         </table>
 
