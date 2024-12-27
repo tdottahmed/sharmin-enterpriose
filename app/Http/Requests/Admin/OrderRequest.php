@@ -2,26 +2,21 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Models\ClientOrderDocument;
 use App\Models\Order;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class OrderRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         $user = Auth::user();
         return $user && ($user->can('create orders') || $user->can('update orders'));
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
@@ -29,11 +24,12 @@ class OrderRequest extends FormRequest
             'title' => 'required|string|max:255',
             'client_id' => 'required|integer|exists:clients,id',
             'start_date' => 'required|date',
-            'due_date' => 'required|date',
-            'total_amount' => 'required|numeric',
-            'paid_amount' => 'required|numeric',
-            'due_amount' => 'required|numeric',
+            'due_date' => 'required|date|after_or_equal:start_date',
+            'total_amount' => 'required|numeric|min:0',
+            'paid_amount' => 'required|numeric|min:0|lte:total_amount',
+            'due_amount' => 'required|numeric|min:0',
             'description' => 'nullable|string',
+            'documents' => 'nullable|array',
         ];
     }
 
@@ -52,12 +48,35 @@ class OrderRequest extends FormRequest
 
     public function storeOrder($data)
     {
-        return Order::create($data);
+        $order = Order::create(Arr::except($data, 'documents'));
+        if (isset($data['documents'])) {
+            $this->storeDocuments($order, $data['documents']);
+        }
+        return $order;
     }
 
     public function updateOrder($order, $data)
     {
-        $order->update($data);
+        $order->update(Arr::except($data, 'documents'));
+        if (isset($data['documents'])) {
+            $this->storeDocuments($order, $data['documents']);
+        }
         return $order;
+    }
+
+    public function storeDocuments($order, $documents)
+    {
+        foreach ($documents as $document) {
+            try {
+                $documentPath = filepondUpload($document, 'orders/documents');
+                ClientOrderDocument::create([
+                    'client_id' => $order->client_id,
+                    'order_id' => $order->id,
+                    'document' => $documentPath
+                ]);
+            } catch (\Exception $e) {
+                Log::error('Document upload failed: ' . $e->getMessage());
+            }
+        }
     }
 }

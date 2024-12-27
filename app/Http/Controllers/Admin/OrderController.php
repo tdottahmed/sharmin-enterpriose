@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Mpdf\Mpdf;
+use App\Models\Order;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
 use App\Http\Requests\Admin\OrderRequest;
-use App\Models\Client;
-use App\Models\Order;
 
 class OrderController extends Controller
 {
@@ -29,6 +31,12 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders'));
     }
 
+    /**
+     * Show the form for creating a new order.
+     *
+     * @return \Illuminate\View\View
+     */
+
     public function create()
     {
         $clients = Client::all();
@@ -41,8 +49,9 @@ class OrderController extends Controller
             $request->handle();
             return redirect()->route('orders.index')->with('success', 'Order created successfully');
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             Log::error('Order creation failed: ' . $th->getMessage());
-            return back()->with('error', 'Something went wrong. Please try again.');
+            return back()->withInput()->with('error', 'Something went wrong. Please try again.');
         }
     }
 
@@ -101,5 +110,15 @@ class OrderController extends Controller
             Log::error('Order cancellation failed: ' . $th->getMessage());
             return back()->with('error', 'Something went wrong. Please try again.');
         }
+    }
+
+    public function generatePdf(Order $order)
+    {
+        $logoPath = getFilePath(getSetting('app_logo'));
+        $html = View::make('admin.orders.pdf', compact('order', 'logoPath'))->render();
+        $mpdf = new Mpdf();
+        $mpdf->WriteHTML($html);
+        return response($mpdf->Output('order.pdf', \Mpdf\Output\Destination::INLINE))
+            ->header('Content-Type', 'application/pdf');
     }
 }

@@ -21,6 +21,12 @@
                 'icon' => 'ri-close-line',
                 'route' => 'orders.cancel',
             ],
+            [
+                'title' => 'Download Pdf',
+                'method' => 'get',
+                'icon' => 'ri-download-2-line',
+                'route' => 'orders.pdf',
+            ],
         ]" />
 
     </x-data-display.card>

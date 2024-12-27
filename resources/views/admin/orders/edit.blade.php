@@ -26,6 +26,15 @@
                 required />
             <x-data-entry.text-area name="description" label="Description" placeholder="Description"
                 :value="$order->description" />
+            <div class="d-flex gap-4">
+                @foreach ($order->documents as $document)
+                    <figure class="figure">
+                        <img src="{{ getFilePath($document->document) }}" class="figure-img img-fluid rounded"
+                            alt="..." width="200">
+                    </figure>
+                @endforeach
+            </div>
+            <x-data-entry.uploader-filepond name="documents" label="Documents" multiple=true />
         </x-data-entry.form>
     </x-data-display.card>
 </x-layouts.admin.master>

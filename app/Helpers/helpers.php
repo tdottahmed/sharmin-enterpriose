@@ -85,7 +85,7 @@ if (!function_exists('getSetting')) {
 
     function getSetting($name)
     {
-        $setting = ApplicationSetup::where('name', $name)->first();
+        $setting = ApplicationSetup::where('type', $name)->first();
         return $setting ? $setting->value : '';
     }
 }

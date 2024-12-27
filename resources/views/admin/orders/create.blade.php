@@ -22,6 +22,7 @@
             <x-data-entry.date-picker name="start_date" label="Start Date" placeholder="Order Date" required />
             <x-data-entry.date-picker name="due_date" label="Due Date" placeholder="Due Date" required />
             <x-data-entry.text-area name="description" label="Description" placeholder="Description" />
+            <x-data-entry.uploader-filepond name="documents" label="Documents" multiple="true" />
         </x-data-entry.form>
     </x-data-display.card>
 

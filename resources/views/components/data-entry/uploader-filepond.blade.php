@@ -30,7 +30,7 @@
 </div>
 <!-- end row -->
 
-@push('scripts')
+@pushonce('scripts')
     <!-- FilePond JS -->
     <script src="/assets/admin/libs/filepond/filepond.min.js"></script>
     <script src="/assets/admin/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script>
@@ -59,4 +59,4 @@
             });
         });
     </script>
-@endpush
+@endpushonce

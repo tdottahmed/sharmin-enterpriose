@@ -47,5 +47,15 @@
                 <span class="text-muted">{{ \Carbon\Carbon::parse($order->due_date)->format('d M, Y') }}</span>
             </p>
         </div>
+
+        <h6>{{ __('Order Documents:') }}</h6>
+        <div class="d-flex gap-4">
+            @foreach ($order->documents as $document)
+                <figure class="figure">
+                    <img src="{{ getFilePath($document->document) }}" class="figure-img img-fluid rounded"
+                        alt="..." width="200">
+                </figure>
+            @endforeach
+        </div>
     </x-data-display.card>
 </x-layouts.admin.master>

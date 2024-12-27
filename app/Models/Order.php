@@ -42,4 +42,9 @@ class Order extends Model
     {
         return now()->diff($this->due_date)->format('%d days');
     }
+
+    public function documents()
+    {
+        return $this->hasMany(ClientOrderDocument::class);
+    }
 }

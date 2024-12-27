@@ -10,7 +10,7 @@
     <!-- Default Input -->
     <textarea name="{{ $name }}" id="{{ $name }}" placeholder="{{ $placeholder }}" cols="10" rows="5"
         value="{{ old($name, $value) }}" {{ $attributes->merge(['class' => 'form-control']) }}
-        @error($name) aria-invalid="true" @enderror @if ($attributes->has('required')) required @endif>{{ old($name, $value) }}</textarea>
+        @error($name) aria-invalid="true" @enderror @if ($attributes->has('required')) required @endif>{{ $value ?? old($name) }}</textarea>
 
     @error($name)
         <span class="text-danger">{{ __($message) }}</span>
