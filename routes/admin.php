@@ -1,15 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\NoteController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ApplicationSetupController;
-use App\Http\Controllers\Admin\NoteController;
 
 Route::group(['middleware' => ['role:super-admin|admin|staff|user']], function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class)->except('show');
     Route::resource('users', UserController::class);

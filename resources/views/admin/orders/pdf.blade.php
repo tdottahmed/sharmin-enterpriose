@@ -90,13 +90,13 @@
                 <td>Address</td>
                 <td>{{ $order->client->address ?? 'N/A' }}</td>
                 <td>Address</td>
-                <td>{{ getSetting('company_address', 'Company Address Here') }}</td>
+                <td>{{ getSetting('app_address', 'Company Address Here') }}</td>
             </tr>
             <tr>
                 <td>Phone</td>
                 <td>{{ $order->client->phone ?? 'N/A' }}</td>
                 <td>Phone</td>
-                <td>{{ getSetting('company_phone', 'Company Phone Here') }}</td>
+                <td>{{ getSetting('app_phone', 'Company Phone Here') }}</td>
             </tr>
         </table>
 
@@ -117,15 +117,15 @@
             </tr>
             <tr>
                 <td>Total Amount</td>
-                <td>${{ number_format($order->total_amount, 2) }}</td>
+                <td>{{ number_format($order->total_amount, 2) }}</td>
             </tr>
             <tr>
                 <td>Paid Amount</td>
-                <td>${{ number_format($order->paid_amount, 2) }}</td>
+                <td>{{ number_format($order->paid_amount, 2) }}</td>
             </tr>
             <tr>
                 <td>Due Amount</td>
-                <td>${{ number_format($order->due_amount, 2) }}</td>
+                <td>{{ number_format($order->due_amount, 2) }}</td>
             </tr>
         </table>
 
