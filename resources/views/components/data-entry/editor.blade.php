@@ -68,8 +68,7 @@
     </style>
 @endPushOnce
 
-@push('scripts')
-    <script src="{{ asset('/assets/admin/libs/tinymce/tinymce.min.js') }}"></script>
+@pushOnce('scripts')
     <script>
         $(document).ready(function() {
             const isSmallScreen = window.matchMedia('(max-width: 1023.5px)').matches;
@@ -89,15 +88,15 @@
                 editimage_cors_hosts: ['picsum.photos'],
                 menubar: true,
                 toolbar: `undo redo |
-                 link media image table|
-                 bold italic underline strikethrough removeformat |
-                forecolor backcolor  |
-                numlist bullist  |
-                blocks fontsize |
-                align lineheight outdent indent |
-                ltr rtl |
-                charmap emoticons | codesample preview | insertdatetime searchreplace
-                `,
+             link media image table|
+             bold italic underline strikethrough removeformat |
+            forecolor backcolor  |
+            numlist bullist  |
+            blocks fontsize |
+            align lineheight outdent indent |
+            ltr rtl |
+            charmap emoticons | codesample preview | insertdatetime searchreplace
+            `,
                 toolbar_sticky: false,
                 images_file_types: 'jpg,jpeg,gif,png,svg,webp',
                 file_picker_types: 'file image media',
@@ -177,4 +176,4 @@
             });
         });
     </script>
-@endPush
+@endPushOnce
