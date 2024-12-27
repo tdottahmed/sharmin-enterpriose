@@ -29,6 +29,10 @@ class UserRolePermissionSeeder extends Seeder
             ['name' => 'update permission', 'group' => 'Permission Management'],
             ['name' => 'delete permission', 'group' => 'Permission Management'],
 
+            // Application info setup
+            ['name' => 'view applicationSettings', 'group' => 'Application Management'],
+            ['name' => 'update applicationSettings', 'group' => 'Application Management'],
+
             // clients permissions
             ['name' => 'create client', 'group' => 'Client Management'],
             ['name' => 'view client', 'group' => 'Client Management'],

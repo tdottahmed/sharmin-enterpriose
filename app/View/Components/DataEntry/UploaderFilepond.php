@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class UploaderDropzone extends Component
+class UploaderFilepond extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class UploaderDropzone extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.data-entry.uploader-dropzone');
+        return view('components.data-entry.uploader-filepond');
     }
 }

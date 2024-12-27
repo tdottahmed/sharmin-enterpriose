@@ -89,6 +89,8 @@
                         'permissions.index' => 'Permissions',
                         'users.index' => 'Users',
                     ]" />
+                <x-layouts.admin.partials.sidebar-menu-item route="applicationSetup.index" icon="ri-settings-3-line"
+                    label="Application Setup" />
             </ul>
         </div>
         <!-- Sidebar -->
