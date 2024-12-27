@@ -1,10 +1,14 @@
 <li class="nav-item">
     @php
-        $isDropdownActive = false;
-        $isActive = request()->routeIs($route) || request()->routeIs($route . '.*');
-        if (!empty($dropdownRoutes)) {
-            foreach ($dropdownRoutes as $route => $subLabel) {
-                if (request()->routeIs($route) || request()->routeIs($route . '.*')) {
+        // Check if the current route matches the one passed or if it's a 'show' or 'edit' route
+$isDropdownActive = false;
+$isActive =
+    request()->routeIs($route) ||
+    request()->routeIs(implode('.', array_slice(explode('.', $route), 0, 1)) . '.*');
+
+if (!empty($dropdownRoutes)) {
+    foreach ($dropdownRoutes as $route => $subLabel) {
+        if (request()->routeIs($route) || request()->routeIs($route . '.*')) {
                     $isDropdownActive = true;
                     break;
                 }
@@ -20,6 +24,7 @@
         <i class="{{ $icon }}"></i>
         <span data-key="t-{{ Str::slug($label) }}">{{ $label }}</span>
     </a>
+
     @if (!empty($dropdownRoutes))
         <div class="collapse menu-dropdown {{ $isDropdownActive ? 'show' : '' }}" id="{{ Str::slug($label) }}">
             <ul class="nav nav-sm flex-column">
