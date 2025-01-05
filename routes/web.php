@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,6 +18,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::patch('/profile/update-image', [ProfileController::class, 'updateImage'])->name('profile.update-image');
 });
+
+Route::get('/optimize', function () {
+    Artisan::call('migrate --force');
+    Artisan::call('optimize:clear');
+    return redirect()->back()->with('success', 'Optimized successfully');
+})->middleware('auth')->name('optimize');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
