@@ -7,32 +7,39 @@
                     icon="ri-add-line">{{ __('Create Note') }}</x-action.link>
             </div>
         </x-slot>
-        <div class="row">
+        <div class="d-flex flex-wrap justify-content-start gap-3">
             @forelse ($notes as $note)
-                <div class="col-lg-4">
+                <div class="mb-4" style="flex: 1 1 calc(33.333% - 1rem); min-width: 280px;">
                     <x-data-display.card>
                         <x-slot name="header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="card-title">{{ $note->title }}</h6>
-                                <div class="hstack gap-3 d-flex">
-                                    <a href="{{ route('notes.edit', $note->id) }}" class="link-success fs-15"><i
-                                            class="ri-edit-2-line"></i></a>
+                                <h6 class="card-title mb-0">{{ $note->title }}</h6>
+                                <div class="d-flex gap-2">
+                                    <a href="{{ route('notes.edit', $note->id) }}" class="link-success fs-16">
+                                        <i class="ri-edit-2-line"></i>
+                                    </a>
                                     <form action="{{ route('notes.destroy', $note->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" class="link-danger fs-15"><i
-                                                class="ri-delete-bin-line"></i></button>
+                                        <button type="button" class="link-danger fs-16">
+                                            <i class="ri-delete-bin-line"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
                         </x-slot>
-                        <p>{!! str($note->description)->limit(600) !!}</p>
-                        <a href="{{ route('notes.show', $note->id) }}"
-                            class="btn btn-sm btn-primary">{{ __('Read More') }} <i class="ri-arrow-right-line"></i>
+                        <p class="card-text">{!! str($note->description)->limit(350) !!}</p>
+                        <a href="{{ route('notes.show', $note->id) }}" class="btn btn-sm btn-primary">
+                            {{ __('Read More') }} <i class="ri-arrow-right-line"></i>
                         </a>
                     </x-data-display.card>
                 </div>
             @empty
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        {{ __('No notes available.') }}
+                    </div>
+                </div>
             @endforelse
         </div>
     </x-data-display.card>
