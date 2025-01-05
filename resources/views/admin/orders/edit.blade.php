@@ -12,10 +12,14 @@
                 :selected="$order->client_id" label="Select Client" required />
             <x-data-entry.input type="text" name="title" label="Name" placeholder="Name" :value="$order->title"
                 required />
+
             <x-data-entry.select name='status' label="Status" placeholder="Status" :options="['pending' => 'Pending', 'completed' => 'Completed', 'cancelled' => 'cancelled']" :selected="$order->status"
                 label="Select Status" required />
             <x-data-entry.input type="number" name="total_amount" label="Total Amount" :value="$order->total_amount"
                 placeholder="Total Amount" required />
+            <x-data-entry.input type="number" name="original_cost" label="Original Cost" placeholder="Original Cost"
+                :value="$order->original_cost" required />
+            <x-data-entry.input type="number" name="profit" label="Profit" placeholder="Profit" :value="$order->profit" />
             <x-data-entry.input type="number" name="paid_amount" label="Paid Amount" placeholder="Paid Amount"
                 :value="$order->paid_amount" required />
             <x-data-entry.input type="number" name="due_amount" label="Due Amount" placeholder="Due Amount"
@@ -28,11 +32,29 @@
                 :value="$order->description" />
             <div class="d-flex gap-4">
                 @foreach ($order->documents as $document)
-                    <figure class="figure">
-                        <img src="{{ getFilePath($document->document) }}" class="figure-img img-fluid rounded"
-                            alt="..." width="200">
-                    </figure>
+                    @php
+                        $filePath = asset('storage/' . $document->document); // Full path to the file
+                        $extension = pathinfo($document->document, PATHINFO_EXTENSION); // Get file extension
+                    @endphp
+
+                    <div class="document-preview">
+                        @if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                            <!-- Image Preview -->
+                            <img src="{{ $filePath }}" alt="Image" class="img-thumbnail"
+                                style="max-width: 200px; height: auto;">
+                        @elseif(strtolower($extension) === 'pdf')
+                            <!-- PDF Preview -->
+                            <embed src="{{ $filePath }}" type="application/pdf" width="400" height="500">
+                            <!-- OR Use iframe if embed isn't supported -->
+                            {{-- <!-- <iframe src="{{ $filePath }}" width="400" height="500"></iframe> --> --}}
+                        @else
+                            <!-- Default: File download link -->
+                            <a href="{{ $filePath }}" target="_blank" class="btn btn-primary">Download
+                                {{ strtoupper($extension) }}</a>
+                        @endif
+                    </div>
                 @endforeach
+
             </div>
             <x-data-entry.uploader-filepond name="documents" label="Documents" multiple=true />
         </x-data-entry.form>

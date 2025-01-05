@@ -19,8 +19,9 @@
 
             <div class="card-body">
                 <input type="file" class="filepond" name="{{ $name }}{{ $multiple ? '[]' : '' }}"
-                    {{ $multiple ? 'multiple' : '' }} data-max-file-size="5MB" data-max-files="{{ $multiple ? 5 : 1 }}"
-                    accept="image/png, image/jpeg, image/gif, application/pdf">
+                    {{ $multiple ? 'multiple' : '' }} data-max-file-size="100MB"
+                    data-max-files="{{ $multiple ? 5 : 1 }}"
+                    accept="image/png, image/jpeg, image/gif, application/pdf, application/zip, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
             </div>
             <!-- end card body -->
         </div>

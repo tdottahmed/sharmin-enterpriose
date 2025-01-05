@@ -21,6 +21,7 @@ class OrderRequest extends FormRequest
     {
         return [
             'status' => 'required',
+            'original_cost' => 'required|numeric|min:0',
             'title' => 'nullable|string|max:255',
             'client_id' => 'required|integer|exists:clients,id',
             'start_date' => 'required|date',
@@ -36,7 +37,7 @@ class OrderRequest extends FormRequest
     public function handle($order = null)
     {
         $data = $this->validated();
-
+        $data['profit'] = $data['total_amount'] - $data['original_cost'];
         if ($order) {
             $this->updateOrder($order, $data);
         } else {

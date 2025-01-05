@@ -1,3 +1,6 @@
+@props([
+    'displayId' => false,
+])
 <div class="form-group mb-3">
     <label for="{{ $name }}">{{ __($label) }}</label>
     <select id="{{ $name }}" name="{{ $name }}" class="form-control js-example-basic-single"
@@ -5,7 +8,7 @@
         <option value="" disabled>{{ $placeholder }}</option>
         @foreach ($options as $key => $value)
             <option value="{{ $key }}" {{ $key == $selected ? 'selected' : '' }}>
-                {{ $key }}-{{ $value }}
+                {{ $displayId ? $key . ' - ' . $value : $value }}
             </option>
         @endforeach
     </select>

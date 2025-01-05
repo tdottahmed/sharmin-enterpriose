@@ -1,4 +1,13 @@
 <x-layouts.admin.master>
+    @php
+        $currentYear = date('Y');
+        $startYear = 2021; // Define the starting year
+        $endYear = $currentYear + 5; // Define the end year dynamically, 5 years into the future
+        $years = [];
+        for ($year = $startYear; $year <= $endYear; $year++) {
+            $years[$year] = $year;
+        }
+    @endphp
     <div class="row">
         <div class="col-xl-12">
             <div class="card crm-widget">
@@ -93,8 +102,48 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title mb-0">{{ __('Monthly Order Status(Amount)') }}</h4>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title mb-0">{{ __('Monthly Profit') }} - Year: {{ $selectedYear }}</h4>
+                    <div class="position-relative">
+                        <form action="{{ route('dashboard') }}" method="get">
+                            <div class="right-content d-flex gap-2 align-items-center">
+                                <x-data-entry.select name="profit_year" label="Year" placeholder="Year"
+                                    :options="$years" :selected="$selectedProfitYear" label="Select Year" required />
+                                <button class="btn btn-primary btn-sm py-2 mt-2 px-2" type="submit">
+                                    <i class="mdi mdi-magnify"></i> Search
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div id="profit_chart" data-colors='["--vz-primary", "--vz-success", "--vz-danger"]'
+                        class="apex-charts" dir="ltr"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="left-content">
+                        <h4 class="card-title mb-0">{{ __('Monthly Order Status(Amount)') }}-Year: {{ $selectedYear }}
+                        </h4>
+                    </div>
+                    <div class="position-relative">
+                        <form action="{{ route('dashboard') }}" method="get">
+                            <div class="right-content d-flex gap-2 align-items-center">
+                                <x-data-entry.select name="order_status_year" label="Year" placeholder="Year"
+                                    :options="$years" :selected="$selectedYear" label="Select Year" required />
+                                <button class="btn btn-primary btn-sm py-2 mt-2 px-2" type="submit">
+                                    <i class="mdi mdi-magnify"></i> Search
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div id="order_status_chart" data-colors='["--vz-primary", "--vz-success", "--vz-danger"]'
@@ -103,7 +152,6 @@
             </div><!-- end card -->
         </div>
     </div>
-
     @push('scripts')
         <!-- ApexCharts Library -->
         <script src="/assets/admin/libs/apexcharts/apexcharts.min.js"></script>
@@ -185,8 +233,54 @@
 
                 chart.render();
             });
+            document.addEventListener("DOMContentLoaded", function() {
+                const profitChartData = @json($profitChartData);
+
+                const profitOptions = {
+                    chart: {
+                        height: 350,
+                        type: "line", // Change to "bar" if you prefer
+                    },
+                    series: [{
+                        name: "Profit",
+                        data: profitChartData.profit,
+                    }],
+                    colors: ["#2db57d"], // Customize color
+                    xaxis: {
+                        categories: profitChartData.categories,
+                        title: {
+                            text: "Months",
+                        },
+                    },
+                    yaxis: {
+                        title: {
+                            text: "Profit (৳)",
+                        },
+                        labels: {
+                            formatter: function(val) {
+                                return `৳ ${val.toFixed(2)}`; // Add currency symbol
+                            }
+                        }
+                    },
+                    grid: {
+                        borderColor: "#f1f1f1",
+                    },
+                    tooltip: {
+                        y: {
+                            formatter: function(val) {
+                                return `৳ ${val.toFixed(2)}`;
+                            },
+                        },
+                    },
+                };
+
+                const profitChart = new ApexCharts(
+                    document.querySelector("#profit_chart"),
+                    profitOptions
+                );
+
+                profitChart.render();
+            });
         </script>
     @endpush
-
-
 </x-layouts.admin.master>

@@ -23,6 +23,14 @@
             </p>
 
             <p class="mb-3">
+                <strong>{{ __('Original Cost:') }}</strong>
+                <span class="text-success">{{ number_format($order->original_cost, 2) }}</span>
+            </p>
+            <p class="mb-3">
+                <strong>{{ __('Profit:') }}</strong>
+                <span class="text-success">{{ number_format($order->profit, 2) }}</span>
+            </p>
+            <p class="mb-3">
                 <strong>{{ __('Total Amount:') }}</strong>
                 <span class="text-success">{{ number_format($order->total_amount, 2) }}</span>
             </p>
@@ -54,10 +62,21 @@
         <h6>{{ __('Order Documents:') }}</h6>
         <div class="d-flex gap-4">
             @foreach ($order->documents as $document)
-                <figure class="figure">
-                    <img src="{{ getFilePath($document->document) }}" class="figure-img img-fluid rounded"
-                        alt="..." width="200">
-                </figure>
+                @php
+                    $filePath = asset('storage/' . $document->document); // Full path to the file
+                    $extension = pathinfo($document->document, PATHINFO_EXTENSION); // Get file extension
+                @endphp
+                <div class="document-preview">
+                    @if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                        <img src="{{ $filePath }}" alt="Image" class="img-thumbnail"
+                            style="max-width: 200px; height: auto;">
+                    @elseif(strtolower($extension) === 'pdf')
+                        <embed src="{{ $filePath }}" type="application/pdf" width="400" height="500">
+                    @else
+                        <a href="{{ $filePath }}" target="_blank" class="btn btn-primary">Download
+                            {{ strtoupper($extension) }}</a>
+                    @endif
+                </div>
             @endforeach
         </div>
     </x-data-display.card>
