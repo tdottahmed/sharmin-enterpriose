@@ -5,7 +5,7 @@
         <option value="" disabled>{{ $placeholder }}</option>
         @foreach ($options as $key => $value)
             <option value="{{ $key }}" {{ $key == $selected ? 'selected' : '' }}>
-                {{ $value }}
+                {{ $key }}-{{ $value }}
             </option>
         @endforeach
     </select>

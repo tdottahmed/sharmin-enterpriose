@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $guarded = [];
-    protected $appends = ['client_name', 'remaining_date'];
+    protected $appends = ['client_name', 'remaining_date', 'title'];
 
     protected static function boot()
     {
@@ -37,6 +37,11 @@ class Order extends Model
     public function getClientNameAttribute()
     {
         return $this->client ? $this->client->name : null;
+    }
+
+    public function getTitleAttribute()
+    {
+        return $this->client->name . ' - ' . $this->order_no;
     }
     public function getRemainingDateAttribute()
     {

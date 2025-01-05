@@ -155,8 +155,13 @@
                     },
                     yaxis: {
                         title: {
-                            text: "Total Amount ($)",
+                            text: "Total Amount (৳)",
                         },
+                        labels: {
+                            formatter: function(val) {
+                                return `৳ ${val.toFixed(2)}`; // Add Unicode character
+                            }
+                        }
                     },
                     legend: {
                         position: "top",
@@ -167,7 +172,7 @@
                     tooltip: {
                         y: {
                             formatter: function(val) {
-                                return "$ " + val.toFixed(2); // Format as currency
+                                return `৳ ${val.toFixed(2)}`; // Add Unicode character
                             },
                         },
                     },
@@ -182,4 +187,6 @@
             });
         </script>
     @endpush
+
+
 </x-layouts.admin.master>

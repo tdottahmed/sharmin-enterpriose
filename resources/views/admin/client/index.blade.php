@@ -7,6 +7,6 @@
                     icon="ri-add-line">{{ __('Create Client') }}</x-action.link>
             </div>
         </x-slot>
-        <x-data-display.data-table :rows="$clients" :columnsToIgnore="['created_at', 'updated_at', 'image']" />
+        <x-data-display.data-table :rows="$clients" :columnsToIgnore="['created_at', 'updated_at', 'image']" :appendedColumns="['identifier']" />
     </x-data-display.card>
 </x-layouts.admin.master>

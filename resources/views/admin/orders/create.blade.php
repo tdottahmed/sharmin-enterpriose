@@ -11,7 +11,7 @@
         <x-data-entry.form action="{{ route('orders.store') }}">
             <x-data-entry.select name="client_id" label="Client Name" placeholder="Client Name" :options="$clients"
                 :selected="old('client_id')" label="Select Client" required />
-            <x-data-entry.input type="text" name="title" label="Name" placeholder="Name" />
+            {{-- <x-data-entry.input type="text" name="title" label="Name" placeholder="Name" /> --}}
             <x-data-entry.select name='status' label="Status" placeholder="Status" :options="['pending' => 'Pending', 'completed' => 'Completed', 'cancelled' => 'cancelled']" :selected="old('status')"
                 label="Select Status" required />
             <x-data-entry.input type="number" name="total_amount" label="Total Amount" placeholder="Total Amount"

@@ -21,7 +21,7 @@ class OrderRequest extends FormRequest
     {
         return [
             'status' => 'required',
-            'title' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
             'client_id' => 'required|integer|exists:clients,id',
             'start_date' => 'required|date',
             'due_date' => 'required|date|after_or_equal:start_date',

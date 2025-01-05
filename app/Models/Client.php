@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
     protected $guarded = [];
+    protected $appends = ['identifier'];
+
 
     public function orders()
     {
@@ -16,5 +18,10 @@ class Client extends Model
     public function documents()
     {
         return $this->hasMany(ClientOrderDocument::class);
+    }
+
+    public function getIdentifierAttribute()
+    {
+        return $this->id . ' - ' . $this->name;
     }
 }

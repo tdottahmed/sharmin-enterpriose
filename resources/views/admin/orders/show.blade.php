@@ -48,6 +48,9 @@
             </p>
         </div>
 
+        <h6>{{ __('Order Description:') }}</h6>
+        <p>{{ $order->description }}</p>
+        <hr>
         <h6>{{ __('Order Documents:') }}</h6>
         <div class="d-flex gap-4">
             @foreach ($order->documents as $document)
